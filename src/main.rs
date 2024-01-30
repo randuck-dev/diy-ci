@@ -1,3 +1,5 @@
+use std::{env, os};
+
 use clap::{builder::Str, Parser};
 use serde::{Deserialize, Serialize};
 
@@ -8,6 +10,11 @@ struct Args {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    if env::consts::OS == "windows" {
+        println!("Windows not supported");
+        return Ok(());
+    }
+
     let args = Args::parse();
     let file = std::fs::File::open(args.file)?;
 
