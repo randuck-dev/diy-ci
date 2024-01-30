@@ -1,0 +1,6 @@
+jobs:
+  - name: Echo
+    run: |
+      echo "Hello World"
+      curl google.com
+      curl ifconfig.net
