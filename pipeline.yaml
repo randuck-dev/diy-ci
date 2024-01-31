@@ -1,6 +1,15 @@
 jobs:
-  - name: Echo
+  - name: Build
     run: |
       echo "Hello World"
       curl google.com
+      curl ifconfig.net
+  - name: Test
+    run: |
+      echo "Testing"
+      curl ifconfig.net
+
+  - name: Upload Artifcats
+    run: |
+      echo "Uploading Artifacts to registry"
       curl ifconfig.net
