@@ -21,7 +21,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let pipeline = serde_yaml::from_reader::<File, Pipeline>(file)?;
 
-    run_pipeline(&pipeline);
+    run_pipeline(&pipeline)?;
 
     Ok(())
 }
