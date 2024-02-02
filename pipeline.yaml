@@ -1,4 +1,9 @@
+name: Test Project
+
 jobs:
+  - name: Clone
+    url: git@github.com:randuck-dev/diy-ci.git
+
   - name: Build
     run: |
       echo "Hello World"

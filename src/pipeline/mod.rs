@@ -1,10 +1,13 @@
 use std::time::Instant;
 
+mod job_type;
+
+use self::job_type::{Executable, JobType};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Pipeline {
-    jobs: Vec<Jobs>,
+    jobs: Vec<JobType>,
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
@@ -16,18 +19,10 @@ struct Jobs {
 pub fn run_pipeline(pipeline: &Pipeline) -> Result<(), Box<dyn std::error::Error>> {
     for job in &pipeline.jobs {
         let start = Instant::now();
-        let mut cmd = std::process::Command::new("bash");
-        cmd.arg("-c").arg(&job.run);
 
-        let output = cmd.output()?;
-        println!(
-            "---- Step<{}> ----- \n{}----",
-            job.name,
-            String::from_utf8(output.stdout)?
-        );
-
+        job.execute()?;
         let duration = start.elapsed();
-        println!("Time elapsed for job {} - {:?}", job.name, duration)
+        println!("Time elapsed in executing job is: {:?}", duration);
     }
 
     Ok(())
